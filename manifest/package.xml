@@ -2,23 +2,18 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
   <types>
     <members>AirPollutionWrapper</members>
-    <members>AssignOwnerByMap</members>
-    <members>AssignServiceAgent</members>
     <members>AssignServiceAgentTerritoryManagement</members>
     <members>BatchAirPollution</members>
     <members>BatchAirPollutionTest</members>
-    <members>checkRecursive</members>
-    <members>InsertTerritory</members>
     <members>PollutionController</members>
     <members>PollutionControllerTest</members>
+    <members>serviceReqTriggerHandler</members>
     <members>TestDataFactory</members>
     <members>TriggerCallGetWeather</members>
     <members>TriggerCallout</members>
     <members>TriggerCalloutMock</members>
     <members>TriggerCalloutTest</members>
     <members>TriggerCalloutTest2</members>
-    <members>UpdateTerOnTerConfigHandler</members>
-    <members>UpdateUserAndTerOnServiceRequest</members>
     <members>WeatherCalloutTriggerHelper</members>
     <members>WeatherController</members>
     <members>WeatherControllerTest</members>
@@ -147,12 +142,11 @@
     <members>Opportunity.OrderNumber__c</members>
     <members>Opportunity.TrackingNumber__c</members>
     <members>Service_Request__c.Contact__c</members>
-    <members>Service_Request__c.Service_Agent__c</members>
     <members>Service_Request__c.Service__c</members>
+    <members>Service_Request__c.Territory_Configuration__c</members>
     <members>Territory__c.Country__c</members>
     <members>Territory_Configuration__c.Service__c</members>
     <members>Territory_Configuration__c.Territory__c</members>
-    <members>Territory_Configuration__c.User__c</members>
     <members>Territory__c.State__c</members>
     <members>Territory__c.Zip_Code__c</members>
     <members>User.Type_of_Service__c</members>
@@ -780,8 +774,16 @@
     <members>ServiceContract.All_ServiceContracts</members>
     <members>Service_Request__c.All</members>
     <members>Service_Request__c.California_Territory_Service_Request</members>
+    <members>Service_Request__c.Miami_Territory_Service_Request</members>
     <members>Service_Request__c.Michigan_Territory_Service_Request</members>
+    <members>Service_Request__c.North_Carolia_Territory_Service_Request</members>
+    <members>Service_Request__c.Texas_Territory_Service_Request</members>
     <members>Service_Request__c.United_States_of_America_Service_Request</members>
+    <members>Service_Request__c.Washington_Territory_Service_Request</members>
+    <members>Service_Request__c.X28247_Service_Request</members>
+    <members>Service_Request__c.X32854_Service_Request</members>
+    <members>Service_Request__c.X48098_Service_Request</members>
+    <members>Service_Request__c.X98127_Service_Request</members>
     <members>ServiceResource.All_ServiceResources</members>
     <members>ServiceResource.My_ServiceResources</members>
     <members>ServiceTerritory.All_ServiceTerritories</members>
@@ -805,11 +807,27 @@
     <members>Territory__c.All</members>
     <members>Territory__c.California_Territory_Territory</members>
     <members>Territory__c.Country_Queue_Territory</members>
+    <members>Territory__c.Miami_Territory_Territory</members>
     <members>Territory__c.Michigan_Territory_Territory</members>
+    <members>Territory__c.North_Carolia_Territory_Territory</members>
     <members>Territory_Configuration__c.All</members>
     <members>Territory_Configuration__c.California_Territory_Territory_Configuration</members>
     <members>Territory_Configuration__c.Country_Queue_Territory_Configuration</members>
+    <members>Territory_Configuration__c.Miami_Territory_Territory_Configuration</members>
     <members>Territory_Configuration__c.Michigan_Territory_Territory_Configuration</members>
+    <members>Territory_Configuration__c.North_Carolia_Territory_Territory_Configuration</members>
+    <members>Territory_Configuration__c.Texas_Territory_Territory_Configuration</members>
+    <members>Territory_Configuration__c.Washington_Territory_Territory_Configuration</members>
+    <members>Territory_Configuration__c.X28247_Territory_Configuration</members>
+    <members>Territory_Configuration__c.X32854_Territory_Configuration</members>
+    <members>Territory_Configuration__c.X48098_Territory_Configuration</members>
+    <members>Territory_Configuration__c.X98127_Territory_Configuration</members>
+    <members>Territory__c.Texas_Territory_Territory</members>
+    <members>Territory__c.Washington_Territory_Territory</members>
+    <members>Territory__c.X28247_Territory</members>
+    <members>Territory__c.X32854_Territory</members>
+    <members>Territory__c.X48098_Territory</members>
+    <members>Territory__c.X98127_Territory</members>
     <members>User.ActiveUsers</members>
     <members>User.AdminUsers</members>
     <members>User.AllUsers</members>
@@ -933,9 +951,17 @@
     <name>ProfileSessionSetting</name>
   </types>
   <types>
-    <members>California_Territory</members>
-    <members>Michigan_Territory</members>
+    <members>California</members>
+    <members>Florida</members>
+    <members>Michigan</members>
+    <members>North_Carolia</members>
+    <members>Texas</members>
     <members>United_States_of_America</members>
+    <members>Washington</members>
+    <members>X28247</members>
+    <members>X32854</members>
+    <members>X48098</members>
+    <members>X98127</members>
     <name>Queue</name>
   </types>
   <types>
