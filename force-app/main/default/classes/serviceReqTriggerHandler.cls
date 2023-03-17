@@ -1,12 +1,12 @@
-/**  @classname             : serviceReqTriggerHandler
+/**  @classname             : ServiceReqTriggerHandler
   *  @author                : Raghavendra Kadam
-  *  @date                  : 15-03-2023
+  *  @date                  : 15-Mar-2023
   *  @description           : This is Handler class of Trigger AssignServiceAgentOnRequest in which logic has written as 
                               assignment service agent using queue respective to their Territories.
   *  @modification log      : 
   *  1. Raghavendra Kadam   :   Class and comments has written in this class
 */
-public class serviceReqTriggerHandler {
+public class ServiceReqTriggerHandler {
 
 /**  @methodname        : populateOwner
   *  @author            : Raghavendra Kadam
@@ -14,36 +14,52 @@ public class serviceReqTriggerHandler {
   *  @description       : This is Trigger Handler class method in which logic for assignment of owner is written
   *  @return            : None
 */
-  public static void populateOwner(List<Service_Request__c> newRequests){
+  public static void populateOwner(List<Service_Request__c> newRequests)
+  {
     List<String> contactIdList = new List<String>();
     Map<ID, Contact> IdVsContactRecordMap = new Map<Id,Contact>();
     
-    for(Service_Request__c sr : newRequests){
-      if(sr.Contact__c != null){
+    for(Service_Request__c sr : newRequests)
+    {
+      if(sr.Contact__c != null)
+      {
           contactIdList.add(sr.Contact__c);
       }
     }
+
     if(contactIdList.size() > 0 ){
-        IdVsContactRecordMap = new Map<ID, Contact>([SELECT Id, MailingCountry , MailingState, MailingPostalCode FROM Contact where Id IN : contactIdList]);
+      IdVsContactRecordMap = new Map<ID, Contact>([SELECT Id, MailingCountry , MailingState, MailingPostalCode FROM Contact where Id IN : contactIdList]);
     }
-    
-    for(Service_Request__c sr : newRequests){
-      Territory_Configuration__c tc = new Territory_Configuration__c();
-      if(
-(IdVsContactRecordMap.get(sr.Contact__c).MailingCountry != '' && IdVsContactRecordMap.get(sr.Contact__c).MailingState != '' && IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode != '')
-||(IdVsContactRecordMap.get(sr.Contact__c).MailingCountry != '' && IdVsContactRecordMap.get(sr.Contact__c).MailingState != '' && IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode == '')
-||(IdVsContactRecordMap.get(sr.Contact__c).MailingCountry != '' && IdVsContactRecordMap.get(sr.Contact__c).MailingState == '' && IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode == '')
-)
-          tc = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
+
+
+    for(Service_Request__c sr : newRequests)
+    {
+      String currentRecordContCountry = IdVsContactRecordMap.get(sr.Contact__c).MailingCountry;
+      String currentRecordContState = IdVsContactRecordMap.get(sr.Contact__c).MailingState;
+      String currentRecordContZip = IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode;
+      String currentRecordServiceType = sr.Service__c;
+
+      Boolean isConStateZipPresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip != '';
+      Boolean isConStatePresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip == '';
+      Boolean isConPresent = currentRecordContCountry != '' && currentRecordContState == '' && currentRecordContZip == '';
+
+      List<Territory_Configuration__c> terConfigList = new List<Territory_Configuration__c>();
+
+      if(isConStateZipPresent || isConStatePresent || isConPresent){
+      terConfigList = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
               FROM Territory_Configuration__c 
-              Where Territory__r.Country__c =: IdVsContactRecordMap.get(sr.Contact__c).MailingCountry
-              AND Territory__r.State__c =: IdVsContactRecordMap.get(sr.Contact__c).MailingState
-              AND Territory__r.Zip_Code__c =: IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode
-              AND Service__c =: sr.Service__c limit 1];
-      
-      if(tc != null){
-        sr.OwnerId = tc.OwnerId;
-        sr.Territory_Configuration__c = tc.Id;
+              Where Territory__r.Country__c =: currentRecordContCountry
+              AND Territory__r.State__c =: currentRecordContState
+              AND Territory__r.Zip_Code__c =: currentRecordContZip
+              AND Service__c =: currentRecordServiceType limit 1];
+      }
+      if(terConfigList != null)
+      {
+        for(Territory_Configuration__c tc:terConfigList)
+        {
+          sr.OwnerId = tc.OwnerId;
+          sr.Territory_Configuration__c = tc.Id;
+        }
       }
     }
   }
