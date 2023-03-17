@@ -4,7 +4,8 @@
   *  @description           : This is Handler class of Trigger AssignServiceAgentOnRequest in which logic has written as 
                               assignment service agent using queue respective to their Territories.
   *  @modification log      : 
-  *  1. Raghavendra Kadam   :   Class and comments has written in this class
+  *  1. Raghavendra Kadam   :   Class and comments has written in this class 15-Mar-2023
+     2. Raghavendra Kadam   :   Code correction has been done as per review 17-Mar-2023
 */
 public class ServiceReqTriggerHandler {
 
