@@ -7,7 +7,7 @@
   *  1. Raghavendra Kadam   :   Apex Trigger and comments has been added dated on 15-Mar-2023
   *  2. Raghavendra Kadam   :   Apex Trigger naming convention has corrected as per standards dated on 17-Mar-2023
 */
-trigger AssignServiceAgentOnRequest on Service_Request__c (before insert, after insert, before update, after update) {
+trigger AssignServiceAgentOnRequest on Service_Request__c (before insert) {
   if(Trigger.isBefore && Trigger.isInsert)
   {
     ServiceReqTriggerHandler.populateOwner(Trigger.New);
