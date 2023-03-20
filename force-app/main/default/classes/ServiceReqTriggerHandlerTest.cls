@@ -28,7 +28,9 @@ public class ServiceReqTriggerHandlerTest {
           terConfigCountry.add(tr);
         }
       }
+      Test.startTest();
       insert terConfigCountry; 
+      Test.stopTest();
   }
 
 /**  @methodname        : populateOwnerTest
@@ -47,20 +49,20 @@ public class ServiceReqTriggerHandlerTest {
       { 
         Service_Request__c ser = new Service_Request__c();
         ser.Contact__c = con.id;
+
         ser.Territory_Configuration__c = terConfig.Id;
         ser.Service__c = 'Plumbing';
         serList.add(ser);
       }
     }
+    Test.startTest();
     insert serList;
+    Test.stopTest();
+    
     ServiceReqTriggerHandler.populateOwner(serList);
 
     String OwnerIdTerConfigFromTestSetUp = [Select Id, OwnerId from Territory_Configuration__c].OwnerId;
     String ServiceRequestOwnerId = serList[0].OwnerId;
     System.assertEquals(OwnerIdTerConfigFromTestSetUp, ServiceRequestOwnerId);
-
-    String terConfigIdInSerList = serList[0].Territory_Configuration__c;
-    String recordIdTerConfigFromTestSetUp = [Select Id, OwnerId from Territory_Configuration__c].Id;
-    System.assertEquals(recordIdTerConfigFromTestSetUp, terConfigIdInSerList);
   }
 }

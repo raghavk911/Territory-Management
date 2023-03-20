@@ -8,10 +8,11 @@
     <members>PollutionController</members>
     <members>PollutionControllerTest</members>
     <members>serviceReqTriggerHandler</members>
-    <members>TestDataFactory</members>
+    <members>TestDataFactoryEther</members>
     <members>TriggerCallGetWeather</members>
     <members>TriggerCallout</members>
     <members>TriggerCalloutMock</members>
+    <members>serviceReqTriggerHandlerTest</members>
     <members>TriggerCalloutTest</members>
     <members>TriggerCalloutTest2</members>
     <members>WeatherCalloutTriggerHelper</members>

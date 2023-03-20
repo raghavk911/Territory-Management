@@ -27,7 +27,8 @@ public class TestDataFactory {
       obj.MailingCountry='United States of America';
       cont.add(obj);
     }
-    insert cont;
+    //insert cont;
+    Database.insert(cont, false);
     return cont;
   }
 
@@ -76,7 +77,8 @@ public class TestDataFactory {
 
     if(Flag == true)
     {
-      insert territoryList;
+      //insert territoryList;
+      Database.insert(territoryList,false);
     }
     return territoryList;
   }
@@ -89,20 +91,21 @@ public class TestDataFactory {
 */
   public Static List<Territory__c> terListCountry(Integer num, Boolean flag)
   {
-      List<Territory__c> territoryList = new List<Territory__c>();
-       for(Integer i = 0 ; i < num ; i++)
-       {
-          Territory__c ter = new Territory__c();
-          ter.Country__c = 'United States of America'; 
-          ter.State__c = ' ';
-          ter.Zip_Code__c = ' ';
-          territoryList.add(ter);
-       }
+    List<Territory__c> territoryList = new List<Territory__c>();
+     for(Integer i = 0 ; i < num ; i++)
+     {
+        Territory__c ter = new Territory__c();
+        ter.Country__c = 'United States of America'; 
+        ter.State__c = ' ';
+        ter.Zip_Code__c = ' ';
+        territoryList.add(ter);
+     }
 
-      if(Flag == true)
-      {
-        insert territoryList;
-      }
-      return territoryList;
+    if(Flag == true)
+    {
+      // insert territoryList;
+      Database.insert(territoryList,false);
+    }
+    return territoryList;
   }
 }

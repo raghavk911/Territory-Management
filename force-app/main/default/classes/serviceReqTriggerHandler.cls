@@ -32,28 +32,37 @@ public class ServiceReqTriggerHandler {
       IdVsContactRecordMap = new Map<ID, Contact>([SELECT Id, MailingCountry , MailingState, MailingPostalCode FROM Contact where Id IN : contactIdList]);
     }
 
+    String currentRecordContCountry;
+    String currentRecordContState;
+    String currentRecordContZip;
+    String currentRecordServiceType;
 
     for(Service_Request__c sr : newRequests)
     {
-      String currentRecordContCountry = IdVsContactRecordMap.get(sr.Contact__c).MailingCountry;
-      String currentRecordContState = IdVsContactRecordMap.get(sr.Contact__c).MailingState;
-      String currentRecordContZip = IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode;
-      String currentRecordServiceType = sr.Service__c;
+      currentRecordContCountry = IdVsContactRecordMap.get(sr.Contact__c).MailingCountry;
+      System.debug('@@  currentRecordContCountry  ===='+currentRecordContCountry);
+      currentRecordContState = IdVsContactRecordMap.get(sr.Contact__c).MailingState;
+      System.debug('@@  currentRecordContState  ===='+currentRecordContState);
+      currentRecordContZip = IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode;
+      System.debug('@@  currentRecordContZip  ===='+currentRecordContZip);
+      currentRecordServiceType = sr.Service__c;
 
       Boolean isConStateZipPresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip != '';
       Boolean isConStatePresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip == '';
       Boolean isConPresent = currentRecordContCountry != '' && currentRecordContState == '' && currentRecordContZip == '';
 
       List<Territory_Configuration__c> terConfigList = new List<Territory_Configuration__c>();
+    }
 
-      if(isConStateZipPresent || isConStatePresent || isConPresent){
-      terConfigList = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
-              FROM Territory_Configuration__c 
-              Where Territory__r.Country__c =: currentRecordContCountry
-              AND Territory__r.State__c =: currentRecordContState
-              AND Territory__r.Zip_Code__c =: currentRecordContZip
-              AND Service__c =: currentRecordServiceType limit 1];
-      }
+    List<Territory_Configuration__c> terConfigList = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
+    FROM Territory_Configuration__c 
+    Where Territory__r.Country__c =: currentRecordContCountry
+    AND Territory__r.State__c =: currentRecordContState
+    AND Territory__r.Zip_Code__c =: currentRecordContZip
+    AND Service__c =: currentRecordServiceType limit 1];
+
+    for(Service_Request__c sr : newRequests){
+      System.debug('@@  terConfigList ==='+terConfigList);
       if(terConfigList != null)
       {
         for(Territory_Configuration__c tc:terConfigList)
