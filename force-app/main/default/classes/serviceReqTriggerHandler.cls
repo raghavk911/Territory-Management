@@ -40,11 +40,8 @@ public class ServiceReqTriggerHandler {
     for(Service_Request__c sr : newRequests)
     {
       currentRecordContCountry = IdVsContactRecordMap.get(sr.Contact__c).MailingCountry;
-      System.debug('@@  currentRecordContCountry  ===='+currentRecordContCountry);
       currentRecordContState = IdVsContactRecordMap.get(sr.Contact__c).MailingState;
-      System.debug('@@  currentRecordContState  ===='+currentRecordContState);
       currentRecordContZip = IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode;
-      System.debug('@@  currentRecordContZip  ===='+currentRecordContZip);
       currentRecordServiceType = sr.Service__c;
 
       Boolean isConStateZipPresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip != '';
@@ -62,7 +59,6 @@ public class ServiceReqTriggerHandler {
     AND Service__c =: currentRecordServiceType limit 1];
 
     for(Service_Request__c sr : newRequests){
-      System.debug('@@  terConfigList ==='+terConfigList);
       if(terConfigList != null)
       {
         for(Territory_Configuration__c tc:terConfigList)
