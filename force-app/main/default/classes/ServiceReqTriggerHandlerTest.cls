@@ -61,8 +61,8 @@ public class ServiceReqTriggerHandlerTest {
     
     ServiceReqTriggerHandler.populateOwner(serList);
 
-    String OwnerIdTerConfigFromTestSetUp = [Select Id, OwnerId from Territory_Configuration__c].OwnerId;
-    String ServiceRequestOwnerId = serList[0].OwnerId;
-    System.assertEquals(OwnerIdTerConfigFromTestSetUp, ServiceRequestOwnerId);
+    String ownerIdTerConfigFromTestSetUp = [Select Id, OwnerId from Territory_Configuration__c].OwnerId;
+    String serviceRequestOwnerId = serList[0].OwnerId;
+    System.assertEquals(ownerIdTerConfigFromTestSetUp, serviceRequestOwnerId, 'Error: Service Agent has not been assigned');
   }
 }

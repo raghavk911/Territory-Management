@@ -27,7 +27,6 @@ public class TestDataFactory {
       obj.MailingCountry='United States of America';
       cont.add(obj);
     }
-    //insert cont;
     Database.insert(cont, false);
     return cont;
   }
@@ -77,7 +76,6 @@ public class TestDataFactory {
 
     if(Flag == true)
     {
-      //insert territoryList;
       Database.insert(territoryList,false);
     }
     return territoryList;
@@ -103,7 +101,6 @@ public class TestDataFactory {
 
     if(Flag == true)
     {
-      // insert territoryList;
       Database.insert(territoryList,false);
     }
     return territoryList;

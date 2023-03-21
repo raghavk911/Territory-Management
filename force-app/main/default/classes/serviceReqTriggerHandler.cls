@@ -7,7 +7,7 @@
   *  1. Raghavendra Kadam   :   Class and comments has written in this class 15-Mar-2023
      2. Raghavendra Kadam   :   Code correction has been done as per review 17-Mar-2023
 */
-public class ServiceReqTriggerHandler {
+public without sharing class ServiceReqTriggerHandler {
 
 /**  @methodname        : populateOwner
   *  @author            : Raghavendra Kadam
@@ -18,7 +18,7 @@ public class ServiceReqTriggerHandler {
   public static void populateOwner(List<Service_Request__c> newRequests)
   {
     List<String> contactIdList = new List<String>();
-    Map<ID, Contact> IdVsContactRecordMap = new Map<Id,Contact>();
+    Map<ID, Contact> idVsContactRecordMap = new Map<Id,Contact>();
     
     for(Service_Request__c sr : newRequests)
     {
