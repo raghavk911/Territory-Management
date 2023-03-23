@@ -43,28 +43,28 @@ public without sharing class ServiceReqTriggerHandler {
       currentRecordContState = IdVsContactRecordMap.get(sr.Contact__c).MailingState;
       currentRecordContZip = IdVsContactRecordMap.get(sr.Contact__c).MailingPostalCode;
       currentRecordServiceType = sr.Service__c;
-
-      Boolean isConStateZipPresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip != '';
-      Boolean isConStatePresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip == '';
-      Boolean isConPresent = currentRecordContCountry != '' && currentRecordContState == '' && currentRecordContZip == '';
-
-      List<Territory_Configuration__c> terConfigList = new List<Territory_Configuration__c>();
     }
 
-    List<Territory_Configuration__c> terConfigList = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
-    FROM Territory_Configuration__c 
-    Where Territory__r.Country__c =: currentRecordContCountry
-    AND Territory__r.State__c =: currentRecordContState
-    AND Territory__r.Zip_Code__c =: currentRecordContZip
-    AND Service__c =: currentRecordServiceType limit 1];
+    Boolean isConStateZipPresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip != '';
+    Boolean isConStatePresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip == '';
+    Boolean isConPresent = currentRecordContCountry != '' && currentRecordContState == '' && currentRecordContZip == '';
+      
+    if(isConStateZipPresent || isConStatePresent || isConPresent){
+      List<Territory_Configuration__c> terConfigList = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
+      FROM Territory_Configuration__c 
+      Where Territory__r.Country__c =: currentRecordContCountry
+      AND Territory__r.State__c =: currentRecordContState
+      AND Territory__r.Zip_Code__c =: currentRecordContZip
+      AND Service__c =: currentRecordServiceType limit 1];
 
-    for(Service_Request__c sr : newRequests){
-      if(terConfigList != null)
-      {
-        for(Territory_Configuration__c tc:terConfigList)
+      for(Service_Request__c sr : newRequests){
+        if(terConfigList != null)
         {
-          sr.OwnerId = tc.OwnerId;
-          sr.Territory_Configuration__c = tc.Id;
+          for(Territory_Configuration__c tc:terConfigList)
+          {
+            sr.OwnerId = tc.OwnerId;
+            sr.Territory_Configuration__c = tc.Id;
+          }
         }
       }
     }
