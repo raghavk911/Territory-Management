@@ -10,14 +10,6 @@
 trigger AssignServiceAgentOnRequest on Service_Request__c (before insert) {
   if(Trigger.isBefore && Trigger.isInsert)
   {
-    //ServiceReqTriggerHandler.populateOwner(Trigger.New);
-    //ServiceReqTriggerHandler2.populateOwner(Trigger.New);
-    ServiceReqTriggerHandler3.populateOwner(Trigger.New);
+    ServiceReqTriggerHandler.populateOwner(Trigger.New);
   }
-
-  /*if(Trigger.isAfter && Trigger.isInsert)
-  {
-    //ServiceReqTriggerHandler.populateOwner(Trigger.New);
-    ServiceReqTriggerHandler2.populateOwner(Trigger.New);
-  }*/
 }
