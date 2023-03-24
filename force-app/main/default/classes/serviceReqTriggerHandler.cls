@@ -24,7 +24,7 @@ public without sharing class ServiceReqTriggerHandler {
     {
       if(sr.Contact__c != null)
       {
-          contactIdList.add(sr.Contact__c);
+        contactIdList.add(sr.Contact__c);
       }
     }
 
@@ -48,14 +48,14 @@ public without sharing class ServiceReqTriggerHandler {
     Boolean isConStateZipPresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip != '';
     Boolean isConStatePresent = currentRecordContCountry != '' && currentRecordContState != '' && currentRecordContZip == '';
     Boolean isConPresent = currentRecordContCountry != '' && currentRecordContState == '' && currentRecordContZip == '';
-      
+
     if(isConStateZipPresent || isConStatePresent || isConPresent){
       List<Territory_Configuration__c> terConfigList = [ SELECT Id, OwnerId, Name, Territory__c, Service__c 
       FROM Territory_Configuration__c 
       Where Territory__r.Country__c =: currentRecordContCountry
       AND Territory__r.State__c =: currentRecordContState
       AND Territory__r.Zip_Code__c =: currentRecordContZip
-      AND Service__c =: currentRecordServiceType limit 1];
+      AND Service__c =: currentRecordServiceType ];
 
       for(Service_Request__c sr : newRequests){
         if(terConfigList != null)
